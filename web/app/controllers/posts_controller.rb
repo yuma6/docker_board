@@ -1,5 +1,5 @@
 class PostsController < ActionController::Base
-    # protect_from_forgery except: :create
+    protect_from_forgery except: :create
     def index
         posts=Post.all
         render json:{

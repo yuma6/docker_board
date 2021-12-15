@@ -27,8 +27,7 @@ class UsersController < ActionController::Base
             render json: {
                 "me": {
                 "id": 1,
-                "name": "にんじゃわんこ",
-                "session": session
+                "name": "にんじゃわんこ"
                 }
             }
         else
