@@ -35,4 +35,11 @@ class UsersController < ActionController::Base
             return
         end
     end
+
+    def create
+        user_create = params.require(:user).permit(:name, :email, :password)
+        user = User.new(name: user_create[:name],email: user_create[:email],password: user_create[:password])
+        user.save
+    end
+
 end
