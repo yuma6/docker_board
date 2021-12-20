@@ -10,13 +10,16 @@ class PostsController < ActionController::Base
     def create
         post_create = params.require(:post).permit(:content, :user_id)
         post = Post.new(content: post_create[:content],user_id: post_create[:user_id])
-        if post.user_id.blank?
-            post.user_id = 0
-            post.save!
-            render json:{ success: true }
-        else
+        if post.content.blank?
+            render json:{ success: '投稿内容が空です'}
+        elsif post.save
+            #ログイン中ユーザーのidを持たせた後再確認すること
             post.save
-            render json:{ errors: "post_create_error" }
+            render json:{ success: '投稿に成功しました' }
+        else
+            post.user_id = 0
+            post.save
+            render json:{ success: "投稿に成功しました(user_id=0)" }
         end
     end
 end

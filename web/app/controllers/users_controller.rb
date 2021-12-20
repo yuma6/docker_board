@@ -19,7 +19,7 @@ class UsersController < ActionController::Base
         
         csrf_token = form_authenticity_token
         session[:csrf_token] = csrf_token
-        render json: { success: true, csrf: csrf_token }
+        render json: { success: 'ログインに成功しました', csrf: csrf_token, }
     end
 
     def me
@@ -37,9 +37,16 @@ class UsersController < ActionController::Base
     end
 
     def create
+        #メールアドレスが同じ場合も登録されないようにする
         user_create = params.require(:user).permit(:name, :email, :password)
         user = User.new(name: user_create[:name],email: user_create[:email],password: user_create[:password])
-        user.save
+        if user.save
+            render json: { success: 'ユーザー登録成功' }
+            return
+        else
+            render json: { success: ['ユーザー登録失敗'] }
+            return
+        end
     end
 
 end

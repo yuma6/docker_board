@@ -29,6 +29,7 @@ export default {
       axios.post("http://localhost:3000/api/login", obj, config).then(response => {
         // ログインに成功した
         const data = response.data;
+        alert(data.success);
 
         // LocalStorage に CSRF トークンを保存する
         localStorage.csrf = data.csrf;

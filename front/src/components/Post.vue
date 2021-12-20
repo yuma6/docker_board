@@ -27,15 +27,10 @@ export default {
       };
 
       // 送信する
-      axios.post("http://localhost:3000/api/posts", obj, config).then(() => {
+      axios.post("http://localhost:3000/api/posts", obj, config).then(response => {
         // 投稿に成功した
-
-      }, error => {
-        // 投稿に失敗した
-        const data = error.response.data;
-
-        // 失敗した理由を alert で表示する
-        alert(data.errors[0]);
+        const data = response.data;
+        alert(data.success);
       });
     }
   }
