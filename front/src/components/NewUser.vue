@@ -6,7 +6,8 @@
       </div>
     <input type="text" name="email" placeholder="メール">
     <input type="password" name="password" placeholder="パスワード">
-    <button type="submit">ログイン</button>
+    <input type="text" name="name" placeholder="ユーザー名">
+    <button type="submit">ユーザー登録</button>
   </form>
 </template>
 
@@ -15,7 +16,7 @@ import { VueLoading } from 'vue-loading-template'
 import axios from "axios";
 
 export default {
-  name: 'Login',
+  name: 'NewUser',
   components: {
     VueLoading
   },
@@ -34,6 +35,7 @@ export default {
         user: {
           email: data.get("email"),
           password: data.get("password"),
+          name: data.get("name")
         }
       };
       const config = {
@@ -41,15 +43,13 @@ export default {
       };
 
       // 送信する
-      axios.post("http://localhost:3000/api/login", obj, config).then(response => {
-        // ログインに成功した
+      axios.post("http://localhost:3000/api/create", obj, config).then(response => {
+        // 登録に成功した
         const data = response.data;
         this.result = data.result
         this.loading = false
         // console.log(this.result)
-
-        // LocalStorage に CSRF トークンを保存する
-        localStorage.csrf = data.csrf;
+        // alert(data.success);
       });
     },
   },

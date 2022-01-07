@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   scope :api do
     get 'posts' => 'posts#index'
     get 'users/me' => 'users#me'
+    post 'create' => 'users#create'
     post 'login' => 'users#login'
     post 'posts' => 'posts#create'
   end
