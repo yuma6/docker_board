@@ -46,9 +46,9 @@ export default {
       axios.post("http://localhost:3000/api/create", obj, config).then(response => {
         // 登録に成功した
         const data = response.data;
-        this.result = data.success
+        this.result = data.result
         this.loading = false
-        console.log(this.result)
+        // console.log(this.result)
         // alert(data.success);
       });
     },

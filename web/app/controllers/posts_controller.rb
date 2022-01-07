@@ -8,18 +8,13 @@ class PostsController < ActionController::Base
     end
 
     def create
-        post_create = params.require(:post).permit(:content, :user_id)
-        post = Post.new(content: post_create[:content],user_id: post_create[:user_id])
-        if post.content.blank?
-            render json:{ success: '投稿内容が空です'}
-        elsif post.save
-            #ログイン中ユーザーのidを持たせた後再確認すること
-            post.save
-            render json:{ success: '投稿に成功しました' }
-        else
+        post_create = params.require(:post).permit(:content)
+        post = Post.new(content: post_create[:content],user_id: session[:user_id])
+        return render json:{ result: ['投稿内容が空です']} if post.content.blank?
+        if !post.save
             post.user_id = 0
             post.save
-            render json:{ success: "投稿に成功しました(user_id=0)" }
         end
+        render json:{ result: ['投稿に成功しました' + "[user_id:#{post.user_id}]"] }
     end
 end

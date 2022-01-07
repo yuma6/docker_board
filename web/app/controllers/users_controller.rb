@@ -7,27 +7,27 @@ class UsersController < ActionController::Base
     
         # メールアドレスで User が特定出来なかった
         if user.nil?
-            render json: { errors: ['メールアドレスまたはパスワードが間違っています'] }, status: 404
+            render json: { result: ['メールアドレスまたはパスワードが間違っています'] }
             return
         end
     
         # パスワードが一致しない
         unless user.authenticate(login_params[:password])
-            render json: { errors: ['メールアドレスまたはパスワードが間違っています'] }, status: 404
+            render json: { result: ['メールアドレスまたはパスワードが間違っています'] }
             return
         end
         
         csrf_token = form_authenticity_token
         session[:csrf_token] = csrf_token
-        render json: { success: 'ログインに成功しました', csrf: csrf_token, }
+        session[:user_id] = user.id
+        render json: { result: ['ログインに成功しました'], csrf: csrf_token, }
     end
 
     def me
         if session[:csrf_token].present?
             render json: {
                 "me": {
-                "id": 1,
-                "name": "にんじゃわんこ"
+                "id": session
                 }
             }
         else
@@ -41,10 +41,10 @@ class UsersController < ActionController::Base
         user_create = params.require(:user).permit(:name, :email, :password)
         user = User.new(name: user_create[:name],email: user_create[:email],password: user_create[:password])
         if user.save
-            render json: { success: 'ユーザー登録成功' }
+            render json: { result: ['ユーザー登録成功'] }
             return
         else
-            render json: { success: ['ユーザー登録失敗'] }
+            render json: { result: ['ユーザー登録失敗'] }
             return
         end
     end
