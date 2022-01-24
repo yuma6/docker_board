@@ -44,12 +44,13 @@ export default {
       axios.post("http://localhost:3000/api/login", obj, config).then(response => {
         // ログインに成功した
         const data = response.data;
-        this.result = data.result
-        this.loading = false
+        this.result = data.result;
+        this.loading = false;
         // console.log(this.result)
 
         // LocalStorage に CSRF トークンを保存する
         localStorage.csrf = data.csrf;
+        sessionStorage.user_name = data.user_name
       });
     },
   },

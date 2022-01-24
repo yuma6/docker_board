@@ -1,10 +1,8 @@
 class PostsController < ActionController::Base
     protect_from_forgery except: :create
     def index
-        posts=Post.all
-        render json:{
-            posts: posts
-        }
+        posts=Post.joins(:user).select("posts.*,users.*")
+        render json: posts
     end
 
     def create
@@ -17,4 +15,5 @@ class PostsController < ActionController::Base
         end
         render json:{ result: ['投稿に成功しました' + "[user_id:#{post.user_id}]"] }
     end
+
 end
