@@ -2,9 +2,8 @@
   <div class="hello">
     <ul>
       <li v-for="post of posts" :key="post.id">
-        <span>{{ post.content }}/</span>
-        <span v-if="users[post.user_id]">{{users[post.user_id].name}}</span>
-        <span v-else>削除されたユーザー</span>
+        <span>投稿:{{ post.content }}/名前:{{ post.name }}/id:{{ post.user_id }}</span>
+        <!--ユーザーが削除されると投稿も表示されなくなる。dbには残っている-->
       </li>
     </ul>
   </div>
@@ -17,15 +16,12 @@ export default {
   name: 'List',
   data() {
     return {
-      posts: [],
-      users: []
+      posts: []
     }
   },
   mounted() {
     axios.get("http://localhost:3000/api/posts").then((response)=>{
-      const data = response.data;
-      this.posts = data.posts;
-      this.users = data.users;
+      this.posts = response.data;
       // console.log(this.posts)
     });
   },

@@ -15,7 +15,7 @@ export default {
       user: ["ログインされていません"],
     }
   },
-  mounted() {//sessionStrageが存在しないため、新しくページを開いたときにはエラーが出る(動かす上で問題は出ていない)
+  mounted() {//sessionStorageが存在しないため、新しくページを開いたときにはエラーが出る(動かす上で問題は出ていない)
       if (sessionStorage.user_name != "undefined")
         {this.user = [sessionStorage.user_name]}
       else if (sessionStorage.user_name == "undefined")
