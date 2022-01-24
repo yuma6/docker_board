@@ -34,10 +34,12 @@ class UsersController < ActionController::Base
     end
 
     def create
-        #メールアドレスが同じ場合も登録されないようにする
         user_create = params.require(:user).permit(:name, :email, :password)
         user = User.new(name: user_create[:name],email: user_create[:email],password: user_create[:password])
-        if user.save
+        if User.find_by(email: user.email)
+            render json: { result: ['登録済のメールアドレスです'] }
+            return
+        elsif user.save
             render json: { result: ['ユーザー登録成功'] }
             return
         else
