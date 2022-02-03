@@ -7,9 +7,14 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 User.create!(
-    email: "deveuser@example.com",
-    password: "deveuser",
-    # deve_user: "true",
-    name: "管理用ユーザー",
-    id: 0
+    email: "login@sitenai.com",
+    password: "login-sitenai-user",
+    name: "未ログインユーザー",
+    id: 0,
 )
+20.times do |n|
+    Post.create!(
+        content: "確認用投稿#{n+1}",
+        user_id: 0,
+    )
+end

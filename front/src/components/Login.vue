@@ -1,13 +1,20 @@
 <template>
-  <form @submit.prevent="submitted">
-      <vue-loading v-show="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
-      <div v-show="!loading" v-for="result of result" :key="result">
-        {{ result }}
-      </div>
-    <input type="text" name="email" placeholder="メール">
-    <input type="password" name="password" placeholder="パスワード">
-    <button type="submit">ログイン</button>
-  </form>
+  <v-form @submit.prevent="submitted" v-if="display">
+    <vue-loading v-show="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
+    <v-container>
+      <v-row class="justify-center">
+        <v-col cols="12" sm="3" md="3">
+          <v-text-field type="text" name="email" label="メール" outlined></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="3" md="3">
+          <v-text-field type="password" name="password" label="パスワード" outlined></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="1" md="1">
+          <v-btn type="submit">ログイン</v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -22,8 +29,13 @@ export default {
   data() {
     return {
       result: [],
-      loading: false
+      loading: false,
+      display: true
     }
+  },
+  mounted(){
+    if (sessionStorage.user_name != "undefined" && (sessionStorage.user_name != undefined))
+      {this.display = false}
   },
   methods: {
     submitted(e) {
@@ -44,18 +56,18 @@ export default {
       axios.post("http://localhost:3000/api/login", obj, config).then(response => {
         // ログインに成功した
         const data = response.data;
-        this.result = data.result;
+        // console.log(data)
+        localStorage.csrf = data.csrf;
+        sessionStorage.user_name = data.user_name
+        sessionStorage.user_id = data.user_id
         this.loading = false;
+        this.result = alert(data.result)
+        this.$router.go({path: this.$router.currentRoute.path, force: true})
         // console.log(this.result)
 
         // LocalStorage に CSRF トークンを保存する
-        localStorage.csrf = data.csrf;
-        sessionStorage.user_name = data.user_name
       });
     },
   },
 }
 </script>
-
-<style scoped>
-</style>

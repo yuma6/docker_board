@@ -1,11 +1,11 @@
 <template>
-  <div id="app"><!--ログイン状態で表示を切り替える?-->
+  <v-app>
     <LoginUser/>
     <NewUser/>
     <Login/>
     <Post/>
     <List/>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -22,7 +22,7 @@ export default {
     Post,
     List,
     LoginUser
-  }
+  },
 }
 </script>
 
