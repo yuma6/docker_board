@@ -12,7 +12,9 @@
         <v-col cols="12" sm="2" md="2">
           <v-text-field type="text" name="name" label="ユーザー名" outlined></v-text-field>
         </v-col>
-        <v-col cols="12" sm="1" md="1">
+      </v-row>
+      <v-row class="justify-center">
+        <v-col cols="12" sm="3" md="3">
           <v-btn type="submit">ユーザー登録</v-btn>
         </v-col>
       </v-row>

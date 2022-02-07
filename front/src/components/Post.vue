@@ -3,12 +3,12 @@
     <vue-loading v-show="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
     <v-container>
       <v-row class="justify-center">
-        <v-col cols="12" sm="7" md="7">
+        <v-col cols="12" sm="6" md="6">
           <v-textarea name="content" outlined></v-textarea>
         </v-col>
       </v-row>
       <v-row class="justify-center">
-        <v-col cols="12" sm="2" md="2">
+        <v-col cols="12" sm="3" md="3">
           <v-btn type="submit">投稿</v-btn>
         </v-col>
       </v-row>

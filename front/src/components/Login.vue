@@ -9,7 +9,9 @@
         <v-col cols="12" sm="3" md="3">
           <v-text-field type="password" name="password" label="パスワード" outlined></v-text-field>
         </v-col>
-        <v-col cols="12" sm="1" md="1">
+      </v-row>
+      <v-row class="justify-center">
+        <v-col cols="12" sm="3" md="3">
           <v-btn type="submit">ログイン</v-btn>
         </v-col>
       </v-row>

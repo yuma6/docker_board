@@ -16,6 +16,8 @@ export default {
   mounted() {
       if (sessionStorage.user_name != "undefined" && (sessionStorage.user_name != undefined))
         this.user = sessionStorage
+      else
+        this.user = { user_name: "未ログインユーザー", user_id: 0 }
   },
 }
 </script>
