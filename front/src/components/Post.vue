@@ -1,6 +1,7 @@
 <template>
   <v-form @submit.prevent="submitted">
-    <vue-loading v-show="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
+    <vue-loading v-if="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
+    <div v-else>{{message[0]}}</div>
     <v-container>
       <v-row class="justify-center">
         <v-col cols="12" sm="6" md="6">
@@ -27,13 +28,12 @@ export default {
   },
   data() {
     return {
-      result: [],
+      message: "",
       loading: false
     }
   },
   methods: {
     submitted(e) {
-      // 送信するデータを作る
       this.loading = true
       const data = new FormData(e.target);
       const obj = {
@@ -51,8 +51,12 @@ export default {
       axios.post("http://localhost:3000/api/posts", obj, config).then(response => {
         const data = response.data;
         this.loading = false
-        this.result = alert(data.result)
-        this.$router.go({path: this.$router.currentRoute.path, force: true})
+        this.message = data.message
+        if(data.result == true){
+          window.setTimeout(()=>{
+                window.location.reload();
+          }, 2500);
+        }
       });
     }
   }

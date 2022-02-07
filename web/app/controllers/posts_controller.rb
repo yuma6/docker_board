@@ -9,14 +9,14 @@ class PostsController < ActionController::Base
         post_create = params.require(:post).permit(:content)
         post = Post.new(content: post_create[:content],user_id: session[:user_id])
         user = session[:user_name]
-        return render json:{ result: ['投稿内容が空です。']} if post.content.blank?
+        return render json:{ message: ['投稿内容が空です。'], result: false} if post.content.blank?
         if !post.save
             postuser=User.find_by(id:0)
             post.user_id = postuser.id
             user = postuser.name
             post.save
         end
-        render json:{ result: ['投稿に成功しました。' + "#{user}##{post.user_id}"] }
+        render json:{ message: ['投稿に成功しました。' + "#{user}##{post.user_id}"], result:true }
     end
 
 end
