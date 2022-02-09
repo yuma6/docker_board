@@ -10,7 +10,7 @@
       </v-row>
       <v-row class="justify-center">
         <v-col cols="12" sm="3" md="3">
-          <v-btn type="submit">投稿</v-btn>
+          <v-btn v-if="!loading" type="submit">投稿</v-btn>
         </v-col>
       </v-row>
     </v-container>

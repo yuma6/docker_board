@@ -13,7 +13,7 @@
       </v-row>
       <v-row class="justify-center">
         <v-col cols="12" sm="3" md="3">
-          <v-btn type="submit">ログイン</v-btn>
+          <v-btn v-if="!loading" type="submit">ログイン</v-btn>
         </v-col>
       </v-row>
     </v-container>

@@ -16,7 +16,7 @@
       </v-row>
       <v-row class="justify-center">
         <v-col cols="12" sm="3" md="3">
-          <v-btn type="submit">ユーザー登録</v-btn>
+          <v-btn v-if="!loading" type="submit">ユーザー登録</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -60,7 +60,6 @@ export default {
 
       axios.post("http://localhost:3000/api/create", obj, config).then(response => {
         const data = response.data;
-        console.log(data)
         this.loading = false
         this.message = data.message
         if(data.result == true){
