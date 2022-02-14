@@ -1,12 +1,20 @@
 <template>
-  <form @submit.prevent="submitted">
-      <vue-loading v-show="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
-      <div v-show="!loading" v-for="result of result" :key="result">
-        {{ result }}
-      </div>
-    <textarea name="content"></textarea>
-    <button type="submit">投稿</button>
-  </form>
+  <v-form @submit.prevent="submitted">
+    <vue-loading v-if="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
+    <div v-else>{{message[0]}}</div>
+    <v-container>
+      <v-row class="justify-center">
+        <v-col cols="12" sm="6" md="6">
+          <v-textarea name="content" outlined></v-textarea>
+        </v-col>
+      </v-row>
+      <v-row class="justify-center">
+        <v-col cols="12" sm="3" md="3">
+          <v-btn v-if="!loading" type="submit">投稿</v-btn>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -20,13 +28,12 @@ export default {
   },
   data() {
     return {
-      result: [],
+      message: "",
       loading: false
     }
   },
   methods: {
     submitted(e) {
-      // 送信するデータを作る
       this.loading = true
       const data = new FormData(e.target);
       const obj = {
@@ -41,19 +48,17 @@ export default {
         withCredentials: true,
       };
 
-      // 送信する
       axios.post("http://localhost:3000/api/posts", obj, config).then(response => {
-        // 投稿に成功した
         const data = response.data;
-        this.result = data.result
         this.loading = false
-        // console.log(this.result)
-        // alert(data.result);
+        this.message = data.message
+        if(data.result == true){
+          window.setTimeout(()=>{
+                window.location.reload();
+          }, 2500);
+        }
       });
-    }
+    },
   }
 }
 </script>
-
-<style scoped>
-</style>

@@ -1,19 +1,22 @@
 class PostsController < ActionController::Base
     protect_from_forgery except: :create
     def index
-        posts=Post.joins(:user).select("posts.*,users.*")
+        posts=Post.order(id: "DESC").joins(:user).select("posts.*,users.name")
         render json: posts
     end
 
     def create
         post_create = params.require(:post).permit(:content)
         post = Post.new(content: post_create[:content],user_id: session[:user_id])
-        return render json:{ result: ['投稿内容が空です']} if post.content.blank?
+        user = session[:user_name]
+        return render json:{ message: ['投稿内容が空です。'], result: false} if post.content.blank?
         if !post.save
-            post.user_id = 0
+            postuser=User.find_by(id:0)
+            post.user_id = postuser.id
+            user = postuser.name
             post.save
         end
-        render json:{ result: ['投稿に成功しました' + "[user_id:#{post.user_id}]"] }
+        render json:{ message: ['投稿に成功しました。' + "#{user}##{post.user_id}"], result:true }
     end
 
 end

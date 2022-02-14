@@ -1,9 +1,7 @@
 <template>
-  <ul>
-    <div v-for="user of user" :key="user.id">
-      {{ user }}
+    <div>
+      {{ user.user_name }}#{{ user.user_id }}
     </div>
-  </ul>
 </template>
 
 <script>
@@ -12,18 +10,15 @@ export default {
   name: 'PostView',
   data() {
     return {
-      user: ["ログインされていません"],
+      user: [],
     }
   },
-  mounted() {//sessionStorageが存在しないため、新しくページを開いたときにはエラーが出る(動かす上で問題は出ていない)
-      if (sessionStorage.user_name != "undefined")
-        {this.user = [sessionStorage.user_name]}
-      else if (sessionStorage.user_name == "undefined")
-        {this.user = ["ログインされていません"]}
+  mounted() {
+      if (sessionStorage.user_name != "undefined" && (sessionStorage.user_name != undefined)){
+        this.user = sessionStorage
+      } else {
+        this.user = { user_name: "未ログインユーザー", user_id: 0 }
+      }
   },
 }
 </script>
-
-<style scoped>
-
-</style>
