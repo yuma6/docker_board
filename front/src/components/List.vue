@@ -2,7 +2,7 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="8">
-  <v-btn class="btn" @click="reset()">更新</v-btn>
+        <v-btn @click="reset()">更新</v-btn>
         <v-data-iterator :items="posts" :items-per-page.sync="itemsPerPage" :page.sync="page" hide-default-footer>
 
           <template v-slot:header>
@@ -129,7 +129,7 @@ export default {
         for (var i = 0; i < this.posts.length; i++) {
           this.posts[i].created_at = new Date(this.posts[i].created_at);
         }
-    });
+      });
     },
   },
 }

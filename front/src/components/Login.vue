@@ -1,5 +1,6 @@
 <template>
   <v-form @submit.prevent="submitted" v-if="display">
+    <NewUser/>
     <vue-loading v-if="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
     <div v-else>{{message[0]}}</div>
     <v-container>
@@ -23,11 +24,13 @@
 <script>
 import { VueLoading } from 'vue-loading-template'
 import axios from "axios";
+import NewUser from './NewUser.vue'
 
 export default {
   name: 'Login',
   components: {
-    VueLoading
+    VueLoading,
+    NewUser,
   },
   data() {
     return {
@@ -62,9 +65,7 @@ export default {
         this.loading = false;
         this.message = data.message
         if(data.result == true){
-          window.setTimeout(()=>{
-                window.location.reload();
-          }, 2500);
+          this.display = false
         }
       });
     },

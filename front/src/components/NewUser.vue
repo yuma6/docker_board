@@ -63,9 +63,7 @@ export default {
         this.loading = false
         this.message = data.message
         if(data.result == true){
-          window.setTimeout(()=>{
-                window.location.reload();
-          }, 2500);
+          this.display = false
         }
       });
     },
