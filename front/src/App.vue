@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <LoginUser/>
     <Login/>
     <Post/>
     <List/>
@@ -11,14 +10,12 @@
 import Login from './components/Login.vue'
 import Post from './components/Post.vue'
 import List from './components/List.vue'
-import LoginUser from './components/LoginUser.vue'
 
 export default {
   components: {
     Login,
     Post,
     List,
-    LoginUser
   },
 }
 </script>

@@ -40,7 +40,7 @@ export default {
     }
   },
   mounted(){
-      if (sessionStorage.user_name != "undefined" && (sessionStorage.user_name != undefined))
+      if (sessionStorage.user_name != undefined)
         {this.display = false}
   },
   methods: {
