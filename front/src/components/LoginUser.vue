@@ -1,6 +1,6 @@
 <template>
     <div>
-      {{ user.user_name }}#{{ user.user_id }}
+      {{ name }}#{{ id }}
     </div>
 </template>
 
@@ -8,17 +8,13 @@
 
 export default {
   name: 'PostView',
-  data() {
-    return {
-      user: [],
-    }
-  },
-  mounted() {
-      if (sessionStorage.user_name != "undefined" && (sessionStorage.user_name != undefined)){
-        this.user = sessionStorage
-      } else {
-        this.user = { user_name: "未ログインユーザー", user_id: 0 }
-      }
+  props:{
+    name: {
+      default: "未ログインユーザー",
+    },
+    id: {
+      default: 0
+    },
   },
 }
 </script>
