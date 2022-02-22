@@ -41,7 +41,7 @@
                     {{ item.content }}
                   </v-card-text>
                   <v-card-text class="text-left">
-                    {{item.created_at.getFullYear()}}/{{1+item.created_at.getMonth()}}/{{item.created_at.getDate()}} 
+                    {{item.created_at.getFullYear()}}/{{1+item.created_at.getMonth()}}/{{item.created_at.getDate()}}
                     {{item.created_at.getHours()}}時{{item.created_at.getMinutes()}}分{{item.created_at.getSeconds()}}秒
                   </v-card-text>
                 </v-card>
