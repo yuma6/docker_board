@@ -2,9 +2,7 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="8">
-        <v-btn @click="reset()">更新</v-btn>
-        <v-data-iterator :items="posts" :items-per-page.sync="itemsPerPage" :page.sync="page" hide-default-footer>
-
+        <v-data-iterator :items="this.$store.getters.posts" :items-per-page.sync="itemsPerPage" :page.sync="page" hide-default-footer>
           <template v-slot:header>
             <v-row class="mt-2" align="center" justify="center">
               <span class="grey--text">items per page</span>
@@ -93,24 +91,22 @@ export default {
   name: 'List',
   data() {
     return {
-      posts: [],
       itemsPerPageArray: [5, 10, 20],
       page: 1,
       itemsPerPage: 5,
     }
   },
   mounted() {
-    
     axios.get("http://localhost:3000/api/posts").then((response)=>{
-      this.posts = response.data;
-      for (var i = 0; i < this.posts.length; i++) {
-        this.posts[i].created_at = new Date(this.posts[i].created_at);
+      this.$store.state.posts = response.data;
+      for (var i = 0; i < this.$store.state.posts.length; i++) {
+        this.$store.state.posts[i].created_at = new Date(this.$store.state.posts[i].created_at);
       }
     });
   },
   computed: {
     numberOfPages () {
-      return Math.ceil(this.posts.length / this.itemsPerPage)
+      return Math.ceil(this.$store.state.posts.length / this.itemsPerPage)
     },
   },
   methods: {
@@ -122,14 +118,6 @@ export default {
     },
     updateitemsPerPage (number) {
       this.itemsPerPage = number
-    },
-    reset () {
-      axios.get("http://localhost:3000/api/posts").then((response)=>{
-        this.posts = response.data;
-        for (var i = 0; i < this.posts.length; i++) {
-          this.posts[i].created_at = new Date(this.posts[i].created_at);
-        }
-      });
     },
   },
 }

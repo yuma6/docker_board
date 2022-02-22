@@ -16,7 +16,7 @@ class PostsController < ActionController::Base
             user = postuser.name
             post.save
         end
-        render json:{ message: ['投稿に成功しました。' + "#{user}##{post.user_id}"], result:true }
+        render json:{ message: ['投稿に成功しました。' + "#{user}##{post.user_id}"], result:true, new:post }
     end
 
 end
