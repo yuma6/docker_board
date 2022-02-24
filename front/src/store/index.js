@@ -12,7 +12,7 @@ export default new Vuex.Store({
     mutations: {
       add_post (state,post) {
         post.created_at = new Date(post.created_at)
-        Vue.set(state.posts, 0, post)
+        state.posts.push(post)
       }
     },
     getters: {

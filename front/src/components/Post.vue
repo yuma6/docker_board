@@ -53,8 +53,6 @@ export default {
         const data = response.data;
         this.loading = false
         this.message = data.message
-        console.log(data.new)
-        console.log(this.$store.state.posts)
         this.$store.commit('add_post',data.new)
       });
     },

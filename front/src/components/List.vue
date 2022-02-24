@@ -2,7 +2,7 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="8">
-        <v-data-iterator :items="this.$store.getters.posts" :items-per-page.sync="itemsPerPage" :page.sync="page" hide-default-footer>
+        <v-data-iterator :items="descPosts" :items-per-page.sync="itemsPerPage" :page.sync="page" hide-default-footer>
           <template v-slot:header>
             <v-row class="mt-2" align="center" justify="center">
               <span class="grey--text">items per page</span>
@@ -36,7 +36,7 @@
             <v-row>
               <v-col v-for="item in items" :key="item.id" cols="12">
                 <v-card>
-                  <v-card-title>{{ item.name }}#{{ item.user_id }}</v-card-title>
+                  <v-card-title>{{ item.user_name }}#{{ item.user_id }}</v-card-title>
                   <v-card-text class="text-left">
                     {{ item.content }}
                   </v-card-text>
@@ -108,6 +108,9 @@ export default {
     numberOfPages () {
       return Math.ceil(this.$store.state.posts.length / this.itemsPerPage)
     },
+    descPosts () {
+      return this.$store.getters.posts.slice().reverse()
+    }
   },
   methods: {
     nextPage () {
