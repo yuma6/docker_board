@@ -15,6 +15,7 @@ User.create!(
 20.times do |n|
     Post.create!(
         content: "確認用投稿#{n+1}",
+        user_name: "未ログインユーザー",
         user_id: 0,
     )
 end

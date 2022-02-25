@@ -2,7 +2,7 @@
   <v-form @submit.prevent="submitted">
     <vue-loading v-if="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
     <div v-else>{{message[0]}}</div>
-    <v-container>
+    <v-container v-if="!loading">
       <v-row class="justify-center">
         <v-col cols="12" sm="6" md="6">
           <v-textarea name="content" outlined></v-textarea>
@@ -10,7 +10,7 @@
       </v-row>
       <v-row class="justify-center">
         <v-col cols="12" sm="3" md="3">
-          <v-btn v-if="!loading" type="submit">投稿</v-btn>
+          <v-btn type="submit">投稿</v-btn>
         </v-col>
       </v-row>
     </v-container>
@@ -29,7 +29,8 @@ export default {
   data() {
     return {
       message: "",
-      loading: false
+      loading: false,
+      new: []
     }
   },
   methods: {
@@ -52,11 +53,7 @@ export default {
         const data = response.data;
         this.loading = false
         this.message = data.message
-        if(data.result == true){
-          window.setTimeout(()=>{
-                window.location.reload();
-          }, 2500);
-        }
+        this.$store.commit('add_post',data.new)
       });
     },
   }
