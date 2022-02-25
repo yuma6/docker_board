@@ -1,7 +1,7 @@
 <template>
   <v-form @submit.prevent="submitted">
     <vue-loading v-if="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
-    <div v-else>{{message[0]}}</div>
+    <div v-if="autoHide">{{message[0]}}</div>
     <v-container v-if="!loading">
       <v-row class="justify-center">
         <v-col cols="12" sm="6" md="6">
@@ -30,6 +30,7 @@ export default {
     return {
       message: "",
       loading: false,
+      autoHide: false,
       new: []
     }
   },
@@ -52,7 +53,12 @@ export default {
       axios.post("http://localhost:3000/api/posts", obj, config).then(response => {
         const data = response.data;
         this.loading = false
+        this.autoHide = true
         this.message = data.message
+        setTimeout(() => {
+          this.autoHide = false}
+          ,3000
+        )
         this.$store.commit('add_post',data.new)
       });
     },

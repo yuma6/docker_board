@@ -1,10 +1,10 @@
 <template>
   <v-form @submit.prevent="submitted">
     <LoginUser :name="name" :id="id"/>
+    <NewUser v-if="display"/>
+    <div v-if="autoHide">{{message[0]}}</div>
     <div v-if="display">
-      <NewUser/>
       <vue-loading v-if="loading" type="spin" color="#333" :size="{ width: '50px', height: '50px' }"></vue-loading>
-      <div v-else>{{message[0]}}</div>
       <v-container>
         <v-row class="justify-center">
           <v-col cols="12" sm="3" md="3">
@@ -42,6 +42,7 @@ export default {
       message: "",
       loading: false,
       display: true,
+      autoHide: false,
       name: undefined,
       id: undefined,
     }
@@ -78,6 +79,11 @@ export default {
         }
         this.message = data.message
         this.loading = false;
+        this.autoHide = true
+        setTimeout(() => {
+          this.autoHide = false}
+          ,3000
+        )
         if(data.result == true){
           this.display = false
         }
