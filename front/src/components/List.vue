@@ -99,8 +99,8 @@ export default {
   mounted() {
     axios.get("http://localhost:3000/api/posts").then((response)=>{
       this.$store.state.posts = response.data;
-      for (var i = 0; i < this.$store.state.posts.length; i++) {
-        this.$store.state.posts[i].created_at = new Date(this.$store.state.posts[i].created_at);
+      for (const post of this.$store.state.posts) {
+        post.created_at = new Date(post.created_at);
       }
     });
   },

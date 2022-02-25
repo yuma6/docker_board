@@ -1,7 +1,7 @@
 class PostsController < ActionController::Base
     protect_from_forgery except: :create
     def index
-        posts=Post.all.order(id: "ASC").joins(:user).select("posts.*,users.name")
+        posts=Post.all.order(id: "ASC")
         render json: posts
     end
 
